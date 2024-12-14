@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {},
+  "extends": "expo/tsconfig.base",
+  "include": [
+    "./declarations.d.ts",
+    "**/*"
+  ]
+}
