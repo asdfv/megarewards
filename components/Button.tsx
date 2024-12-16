@@ -20,6 +20,7 @@ const Button: React.FC<IProps> = ({ style, text, onPress }) => {
 const styles = StyleSheet.create({
     button: {
         height: 88,
+        width: 320,
         backgroundColor: '#00B64A',
         borderRadius: 20,
         alignItems: 'center',

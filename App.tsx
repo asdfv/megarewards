@@ -5,6 +5,7 @@ import {useFonts} from "expo-font";
 import CoinIcon from './assets/coin.svg';
 import {StatusBar} from "expo-status-bar";
 import Button from "./components/Button";
+import AdsViewWrapper from "./app/ads/AdsView";
 
 export default function App() {
     const [loaded, error] = useFonts({
@@ -30,16 +31,15 @@ export default function App() {
 
     return (
         <SafeAreaView style={styles.mainContainer}>
-            <StatusBar style="dark" />
+            <StatusBar style="dark"/>
             <View style={styles.container}>
                 <Text style={styles.subtitle}>МОНЕТОК</Text>
-
                 <View style={styles.titleBlock}>
                     <Text style={styles.title}>0</Text>
                     <CoinIcon width={24} height={24}/>
                 </View>
-
-                <Button text="Смотреть рекламу" onPress={callback} style={{marginTop: 36}} />
+                <AdsViewWrapper color={'#355deb'}/>
+                <Button text="Смотреть рекламу" onPress={callback} style={{marginTop: 36}}/>
             </View>
         </SafeAreaView>
     );
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Manrope_Bold',
     },
     container: {
+        alignItems: "center",
         paddingTop: 40,
         paddingRight: 16,
         paddingLeft: 16,
