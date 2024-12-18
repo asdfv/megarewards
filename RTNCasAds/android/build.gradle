@@ -1,15 +1,15 @@
 buildscript {
-  ext.safeExtGet = {prop, fallback ->
-    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-  }
-  repositories {
-    google()
-    gradlePluginPortal()
-  }
-  dependencies {
-    classpath("com.android.tools.build:gradle:7.3.1")
-    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.22")
-  }
+    ext.safeExtGet = { prop, fallback ->
+        rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+    }
+    repositories {
+        google()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:7.3.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.22")
+    }
 }
 
 apply plugin: 'com.android.library'
@@ -17,21 +17,21 @@ apply plugin: 'com.facebook.react'
 apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
-  compileSdkVersion safeExtGet('compileSdkVersion', 33)
-  namespace "by.grodno.casads"
+    compileSdkVersion safeExtGet('compileSdkVersion', 33)
+    namespace "by.grodno.casads"
 
-  defaultConfig {
-    minSdkVersion safeExtGet('minSdkVersion', 21)
-    targetSdkVersion safeExtGet('targetSdkVersion', 33)
-    buildConfigField("boolean", "IS_NEW_ARCHITECTURE_ENABLED", "true")
-  }
+    defaultConfig {
+        minSdkVersion safeExtGet('minSdkVersion', 21)
+        targetSdkVersion safeExtGet('targetSdkVersion', 33)
+        buildConfigField("boolean", "IS_NEW_ARCHITECTURE_ENABLED", "true")
+    }
 }
 
 repositories {
-  mavenCentral()
-  google()
+    mavenCentral()
+    google()
 }
 
 dependencies {
-  implementation 'com.facebook.react:react-native'
+    implementation 'com.facebook.react:react-native'
 }

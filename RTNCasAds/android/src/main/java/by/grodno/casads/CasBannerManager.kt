@@ -11,20 +11,20 @@ import com.facebook.react.viewmanagers.RTNCasBannerManagerInterface
 
 @ReactModule(name = CasBannerManager.NAME)
 class CasBannerManager(context: ReactApplicationContext) : SimpleViewManager<RTNCasBanner>(), RTNCasBannerManagerInterface<RTNCasBanner> {
-  private val delegate: ViewManagerDelegate<RTNCasBanner> = RTNCasBannerManagerDelegate(this)
+    private val delegate: ViewManagerDelegate<RTNCasBanner> = RTNCasBannerManagerDelegate(this)
 
-  override fun getDelegate(): ViewManagerDelegate<RTNCasBanner> = delegate
+    override fun getDelegate(): ViewManagerDelegate<RTNCasBanner> = delegate
 
-  override fun getName(): String = NAME
+    override fun getName(): String = NAME
 
-  override fun createViewInstance(context: ThemedReactContext): RTNCasBanner = RTNCasBanner(context)
+    override fun createViewInstance(context: ThemedReactContext): RTNCasBanner = RTNCasBanner(context)
 
-  @ReactProp(name = "size")
-  override fun setSize(view: RTNCasBanner, size: String?) {
-    view.text = size
-  }
+    @ReactProp(name = "size")
+    override fun setSize(view: RTNCasBanner, size: String?) {
+        view.text = size
+    }
 
-  companion object {
-    const val NAME = "RTNCasBanner"
-  }
+    companion object {
+        const val NAME = "RTNCasBanner"
+    }
 }
