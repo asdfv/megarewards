@@ -1,17 +1,12 @@
 import React from 'react';
-import {requireNativeComponent, View} from 'react-native';
+import RTNCasBanner from "rtn-cas-ads/js/RTNCasBannerNativeComponent";
 
-const _AdsView = requireNativeComponent('RCTAdsView');
-
-type IProps = {
-    color: String;
-};
-
-const AdsViewWrapper: React.FC<IProps> = ({color}) => {
+const AdsViewWrapper: () => JSX.Element = () => {
     return (
-        <View>
-            <_AdsView style={{width: 124, height: 124, marginTop: 64}} color={color}/>
-        </View>
+        <RTNCasBanner
+            size="BANNER_SIZE"
+            style={{ width: "100%", height: 30 }}
+        />
     );
 };
 

@@ -1,0 +1,36 @@
+{
+  "name": "rtn-cas-ads",
+  "version": "0.0.1",
+  "description": "Clever Ads Solutions advertisements wrapper for React Native.",
+  "react-native": "js/index",
+  "source": "js/index",
+  "files": [
+    "js",
+    "android",
+    "ios",
+    "rtn-cas-ads.podspec",
+    "!android/build",
+    "!ios/build",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
+  ],
+  "keywords": ["react-native", "ios", "android"],
+  "repository": "https://github.com/notYet/rtn-cas-ads",
+  "author": "Vasili dlja-spama@mail.ru> (https://github.com/topSecret)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/topSecret/rtn-cas-ads/issues"
+  },
+  "homepage": "https://github.com/topSecret/rtn-centered-text#readme",
+  "devDependencies": {},
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "codegenConfig": {
+    "name": "RTNCasAdsSpecs",
+    "type": "components",
+    "jsSrcsDir": "js"
+  }
+}

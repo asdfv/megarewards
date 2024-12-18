@@ -38,7 +38,7 @@ export default function App() {
                     <Text style={styles.title}>0</Text>
                     <CoinIcon width={24} height={24}/>
                 </View>
-                <AdsViewWrapper color={'#355deb'}/>
+                <AdsViewWrapper />
                 <Button text="Смотреть рекламу" onPress={callback} style={{marginTop: 36}}/>
             </View>
         </SafeAreaView>
