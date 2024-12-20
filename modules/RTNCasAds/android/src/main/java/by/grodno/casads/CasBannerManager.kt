@@ -21,7 +21,7 @@ class CasBannerManager(context: ReactApplicationContext) : SimpleViewManager<RTN
 
     @ReactProp(name = "size")
     override fun setSize(view: RTNCasBanner, size: String?) {
-        view.text = size
+        view.setTitle(size ?: "")
     }
 
     companion object {

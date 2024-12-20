@@ -5,7 +5,7 @@ const AdsViewWrapper: () => JSX.Element = () => {
     return (
         <RTNCasBanner
             size="BANNER_SIZE"
-            style={{ width: "100%", height: 30 }}
+            style={{ width: "100%", height: 200 }}
         />
     );
 };
