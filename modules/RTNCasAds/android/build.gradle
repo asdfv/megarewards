@@ -25,6 +25,15 @@ android {
         targetSdkVersion safeExtGet('targetSdkVersion', 33)
         buildConfigField("boolean", "IS_NEW_ARCHITECTURE_ENABLED", "true")
     }
+    buildTypes {
+        release {
+            minifyEnabled true
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 repositories {
@@ -34,4 +43,7 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native'
+    implementation("com.cleveradssolutions:cas-sdk:3.9.8")
+    implementation("com.cleveradssolutions:cas:3.9.8")
+    implementation("com.google.android.gms:play-services-ads-identifier:18.1.0")
 }
