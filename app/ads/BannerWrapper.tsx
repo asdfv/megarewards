@@ -8,7 +8,7 @@ type IProps = {
     onPresented?: () => void; // todo
 };
 
-const AdsViewWrapper: React.FC<IProps> = ({size, onPresented}) => {
+const BannerWrapper: React.FC<IProps> = ({size, onPresented}) => {
     let allowedSize: string;
     switch (size) {
         case BannerSize.BANNER:
@@ -26,4 +26,4 @@ const AdsViewWrapper: React.FC<IProps> = ({size, onPresented}) => {
     );
 };
 
-export {AdsViewWrapper, BannerSize};
+export {BannerWrapper, BannerSize};

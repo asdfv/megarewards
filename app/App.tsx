@@ -2,17 +2,17 @@ import React, {useCallback, useEffect} from 'react';
 import {Alert, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import {useFonts} from "expo-font";
-import CoinIcon from './assets/coin.svg';
+import CoinIcon from '../assets/coin.svg';
 import {StatusBar} from "expo-status-bar";
-import Button from "./components/Button";
-import {AdsViewWrapper, BannerSize} from "./app/ads/AdsView";
+import Button from "../components/Button";
+import {BannerSize, BannerWrapper} from "./ads/BannerWrapper";
 
 export default function App() {
     const [loaded, error] = useFonts({
-        'Manrope_Regular': require('./node_modules/@expo-google-fonts/manrope/Manrope_400Regular.ttf'),
-        'Manrope_Bold': require('./node_modules/@expo-google-fonts/manrope/Manrope_700Bold.ttf'),
-        'Manrope_ExtraBold': require('./node_modules/@expo-google-fonts/manrope/Manrope_800ExtraBold.ttf'),
-        'Montserrat_Bold': require('./node_modules/@expo-google-fonts/montserrat/Montserrat_700Bold.ttf'),
+        'Manrope_Regular': require('@expo-google-fonts/manrope/Manrope_400Regular.ttf'),
+        'Manrope_Bold': require('@expo-google-fonts/manrope/Manrope_700Bold.ttf'),
+        'Manrope_ExtraBold': require('@expo-google-fonts/manrope/Manrope_800ExtraBold.ttf'),
+        'Montserrat_Bold': require('@expo-google-fonts/montserrat/Montserrat_700Bold.ttf'),
     });
 
     useEffect(() => {
@@ -40,7 +40,7 @@ export default function App() {
                 </View>
                 <Button text="Смотреть рекламу" onPress={callback} style={{marginBottom: 36}}/>
             </View>
-            <AdsViewWrapper style={styles.banner} size={BannerSize.BANNER}/>
+            <BannerWrapper style={styles.banner} size={BannerSize.BANNER}/>
         </SafeAreaView>
     );
 }
