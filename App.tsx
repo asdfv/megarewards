@@ -40,7 +40,7 @@ export default function App() {
                 </View>
                 <Button text="Смотреть рекламу" onPress={callback} style={{marginBottom: 36}}/>
             </View>
-            <AdsViewWrapper style={styles.banner}/>
+            <AdsViewWrapper style={styles.banner} size="BANNER"/>
         </SafeAreaView>
     );
 }

@@ -13,15 +13,16 @@ import com.cleversolutions.ads.MediationManager
 import com.cleversolutions.ads.android.CASBannerView
 
 class RTNCasBanner(context: Context, adManager: MediationManager) : LinearLayout(context) {
+    private val banner: CASBannerView
 
     init {
         LayoutInflater.from(context).inflate(R.layout.rtn_cas_banner, this, true)
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
         orientation = VERTICAL
-        initBanner(adManager)
+        banner = initBanner(adManager)
     }
 
-    private fun initBanner(manager: MediationManager) {
+    private fun initBanner(manager: MediationManager): CASBannerView {
         val bannerView = findViewById<CASBannerView>(R.id.bannerView)
         bannerView.manager = manager
         val label = findViewById<TextView>(R.id.label)
@@ -49,6 +50,7 @@ class RTNCasBanner(context: Context, adManager: MediationManager) : LinearLayout
                 Log.d(TAG, "Banner Ad received Click action")
             }
         }
+        return bannerView
     }
 
     private fun refreshLayout() {
@@ -61,7 +63,11 @@ class RTNCasBanner(context: Context, adManager: MediationManager) : LinearLayout
         }
     }
 
-    fun setTitle(string: String) {
-        findViewById<TextView>(R.id.title).text = string
+    fun setSize(string: String) {
+        banner.size = when (string) {
+            "BANNER" -> AdSize.BANNER
+            "LEADERBOARD" -> AdSize.LEADERBOARD
+            else -> AdSize.BANNER
+        }
     }
 }

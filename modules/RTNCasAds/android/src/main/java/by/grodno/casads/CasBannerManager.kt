@@ -2,10 +2,7 @@ package by.grodno.casads
 
 import android.content.Context
 import android.util.Log
-import android.view.ViewGroup
-import android.widget.LinearLayout
 import com.cleversolutions.ads.AdType
-import com.cleversolutions.ads.Audience
 import com.cleversolutions.ads.MediationManager
 import com.cleversolutions.ads.android.CAS
 import com.facebook.react.bridge.ReactApplicationContext
@@ -17,13 +14,13 @@ import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.viewmanagers.RTNCasBannerManagerDelegate
 import com.facebook.react.viewmanagers.RTNCasBannerManagerInterface
 
+/** Tag for logs is the same as internal tag for CAS logging for easier filtering. */
 const val TAG = "CAS.AI"
 
 @ReactModule(name = CasBannerManager.NAME)
 class CasBannerManager(private val reactContext: ReactApplicationContext) : SimpleViewManager<RTNCasBanner>(),
     RTNCasBannerManagerInterface<RTNCasBanner> {
     private val delegate: ViewManagerDelegate<RTNCasBanner> = RTNCasBannerManagerDelegate(this)
-
 
     private val adManager: MediationManager by lazy {
         CAS.settings.debugMode = true
@@ -42,8 +39,7 @@ class CasBannerManager(private val reactContext: ReactApplicationContext) : Simp
             .build(reactContext.currentActivity as Context)
     }
 
-    override fun createViewInstance(context: ThemedReactContext): RTNCasBanner =
-        RTNCasBanner(context, adManager)
+    override fun createViewInstance(context: ThemedReactContext): RTNCasBanner = RTNCasBanner(context, adManager)
 
     override fun getDelegate(): ViewManagerDelegate<RTNCasBanner> = delegate
 
@@ -51,7 +47,7 @@ class CasBannerManager(private val reactContext: ReactApplicationContext) : Simp
 
     @ReactProp(name = "size")
     override fun setSize(view: RTNCasBanner, size: String?) {
-        view.setTitle(size ?: "")
+        size?.let { view.setSize(size) }
     }
 
     companion object {
