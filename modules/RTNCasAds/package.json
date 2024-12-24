@@ -23,7 +23,9 @@
     "url": "https://github.com/topSecret/rtn-cas-ads/issues"
   },
   "homepage": "https://github.com/topSecret/rtn-centered-text#readme",
-  "devDependencies": {},
+  "devDependencies": {
+    "@react-native-community/cli": "latest"
+  },
   "peerDependencies": {
     "react": "*",
     "react-native": "*"

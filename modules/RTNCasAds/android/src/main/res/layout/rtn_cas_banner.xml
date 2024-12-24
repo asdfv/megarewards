@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<merge
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:gravity="center"
+        tools:parentTag="android.widget.LinearLayout"
+        tools:orientation="vertical"
+        >
 
     <TextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
+            android:id="@+id/title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="First TextView Default text"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="20sp"
+            android:layout_marginBottom="16dp"
+            android:textStyle="bold"
+            tools:text="TextView Title"
+            />
 
     <TextView
-            android:id="@+id/text2"
-            android:layout_width="wrap_content"
+            android:id="@+id/label"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="16dp"
             android:layout_height="wrap_content"
-            android:text="Second TextView Default text"
-            android:textSize="18sp"/>
-</LinearLayout>
+            android:textSize="16sp"
+            tools:text="TextView Description"
+            />
+
+    <com.cleversolutions.ads.android.CASBannerView
+            android:id="@+id/bannerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            ads:bannerSize="Standard320x50"
+            />
+</merge>

@@ -38,9 +38,9 @@ export default function App() {
                     <Text style={styles.title}>0</Text>
                     <CoinIcon width={24} height={24}/>
                 </View>
-                <AdsViewWrapper />
-                <Button text="Смотреть рекламу" onPress={callback} style={{marginTop: 36}}/>
+                <Button text="Смотреть рекламу" onPress={callback} style={{marginBottom: 36}}/>
             </View>
+            <AdsViewWrapper style={styles.banner}/>
         </SafeAreaView>
     );
 }
@@ -50,20 +50,22 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
+    container: {
+        alignItems: "center",
+        justifyContent: 'flex-end',
+        paddingTop: 40,
+        paddingRight: 16,
+        paddingLeft: 16,
+    },
     subtitle: {
         color: 'rgba(0, 0, 0, 0.5)',
         textAlign: 'center',
         fontFamily: 'Manrope_Bold',
     },
-    container: {
-        alignItems: "center",
-        paddingTop: 40,
-        paddingRight: 16,
-        paddingLeft: 16,
-    },
     titleBlock: {
         flexDirection: 'row',
         alignItems: 'center',
+        marginBottom: 36,
         gap: 8,
         justifyContent: 'center'
     },
@@ -71,5 +73,8 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_Bold',
         fontSize: 32,
         textAlign: 'center',
-    }
+    },
+    banner: {
+        height: 100,
+    },
 });
