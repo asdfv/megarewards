@@ -5,7 +5,7 @@ import {useFonts} from "expo-font";
 import CoinIcon from './assets/coin.svg';
 import {StatusBar} from "expo-status-bar";
 import Button from "./components/Button";
-import AdsViewWrapper from "./app/ads/AdsView";
+import {AdsViewWrapper, BannerSize} from "./app/ads/AdsView";
 
 export default function App() {
     const [loaded, error] = useFonts({
@@ -40,7 +40,7 @@ export default function App() {
                 </View>
                 <Button text="Смотреть рекламу" onPress={callback} style={{marginBottom: 36}}/>
             </View>
-            <AdsViewWrapper style={styles.banner} size="BANNER"/>
+            <AdsViewWrapper style={styles.banner} size={BannerSize.BANNER}/>
         </SafeAreaView>
     );
 }

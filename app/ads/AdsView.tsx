@@ -1,19 +1,23 @@
 import React from 'react';
 import RTNCasBanner from "rtn-cas-ads/js/RTNCasBannerNativeComponent";
 
+enum BannerSize {BANNER, LEADERBOARD}
+
 type IProps = {
-    size?: string;
+    size?: BannerSize;
     onPresented?: () => void; // todo
 };
 
 const AdsViewWrapper: React.FC<IProps> = ({size, onPresented}) => {
     let allowedSize: string;
-    if (["BANNER", "LEADERBOARD"].includes(size)) {
-        allowedSize = size;
-    } else {
-        allowedSize = "BANNER";
+    switch (size) {
+        case BannerSize.BANNER:
+            allowedSize = 'BANNER';
+            break;
+        case BannerSize.LEADERBOARD:
+            allowedSize = 'LEADERBOARD';
+            break;
     }
-
     return (
         <RTNCasBanner
             size={allowedSize}
@@ -22,4 +26,4 @@ const AdsViewWrapper: React.FC<IProps> = ({size, onPresented}) => {
     );
 };
 
-export default AdsViewWrapper;
+export {AdsViewWrapper, BannerSize};
