@@ -5,7 +5,7 @@ enum BannerSize {BANNER, LEADERBOARD}
 
 type IProps = {
     size?: BannerSize;
-    onPresented?: (object: object) => void;
+    onPresented?: (object: { nativeEvent: { result: 'Success' | 'Error' } }) => void;
 };
 
 const BannerWrapper: React.FC<IProps> = ({size, onPresented}) => {
