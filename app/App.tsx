@@ -40,7 +40,12 @@ export default function App() {
                 </View>
                 <Button text="Смотреть рекламу" onPress={callback} style={{marginBottom: 36}}/>
             </View>
-            <BannerWrapper style={styles.banner} size={BannerSize.BANNER}/>
+            <BannerWrapper
+                style={styles.banner}
+                onPresented={({nativeEvent}) => {
+                    Alert.alert(`Result: ${nativeEvent.result}`);
+                }}
+                size={BannerSize.BANNER}/>
         </SafeAreaView>
     );
 }

@@ -45,5 +45,5 @@ dependencies {
     implementation 'com.facebook.react:react-native'
     implementation("com.cleveradssolutions:cas-sdk:3.9.8")
     implementation("com.cleveradssolutions:cas:3.9.8")
-    implementation("com.google.android.gms:play-services-ads-identifier:18.1.0")
+    implementation("com.google.android.gms:play-services-ads-identifier:18.2.0")
 }

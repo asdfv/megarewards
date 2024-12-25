@@ -5,7 +5,7 @@ enum BannerSize {BANNER, LEADERBOARD}
 
 type IProps = {
     size?: BannerSize;
-    onPresented?: () => void; // todo
+    onPresented?: (object: object) => void;
 };
 
 const BannerWrapper: React.FC<IProps> = ({size, onPresented}) => {
@@ -21,6 +21,7 @@ const BannerWrapper: React.FC<IProps> = ({size, onPresented}) => {
     return (
         <RTNCasBanner
             size={allowedSize}
+            onPresented={onPresented}
             style={{width: "100%", height: 150}}
         />
     );

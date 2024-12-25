@@ -17,9 +17,11 @@ import com.facebook.react.viewmanagers.RTNCasBannerManagerInterface
 /** Tag for logs is the same as internal tag for CAS logging for easier filtering. */
 const val TAG = "CAS.AI"
 
-@ReactModule(name = CasBannerManager.NAME)
-class CasBannerManager(private val reactContext: ReactApplicationContext) : SimpleViewManager<RTNCasBanner>(),
+@ReactModule(name = CasBannerManager.CLASS_NAME)
+class CasBannerManager(private val reactContext: ReactApplicationContext) :
+    SimpleViewManager<RTNCasBanner>(),
     RTNCasBannerManagerInterface<RTNCasBanner> {
+
     private val delegate: ViewManagerDelegate<RTNCasBanner> = RTNCasBannerManagerDelegate(this)
 
     private val adManager: MediationManager by lazy {
@@ -43,14 +45,24 @@ class CasBannerManager(private val reactContext: ReactApplicationContext) : Simp
 
     override fun getDelegate(): ViewManagerDelegate<RTNCasBanner> = delegate
 
-    override fun getName(): String = NAME
+    override fun getName(): String = CLASS_NAME
 
     @ReactProp(name = "size")
     override fun setSize(view: RTNCasBanner, size: String?) {
         size?.let { view.setSize(size) }
     }
 
+    override fun getExportedCustomBubblingEventTypeConstants(): Map<String, Any> =
+        mapOf(
+            "onPresented" to mapOf(
+                "phasedRegistrationNames" to mapOf(
+                    "bubbled" to "onPresented",
+                    "captured" to "onPresentedCapture"
+                )
+            )
+        )
+
     companion object {
-        const val NAME = "RTNCasBanner"
+        const val CLASS_NAME = "RTNCasBanner"
     }
 }
