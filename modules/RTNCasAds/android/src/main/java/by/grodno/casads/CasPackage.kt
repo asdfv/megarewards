@@ -1,6 +1,12 @@
 package by.grodno.casads
 
+import android.content.Context
+import android.util.Log
 import by.grodno.casads.ads.banner.CasBannerManager
+import by.grodno.casads.ads.interstitial.CasInterstitialModule
+import com.cleversolutions.ads.AdType
+import com.cleversolutions.ads.MediationManager
+import com.cleversolutions.ads.android.CAS
 import com.facebook.react.TurboReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
@@ -8,19 +14,41 @@ import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
 import com.facebook.react.uimanager.ViewManager
 
-class CasPackage : TurboReactPackage() {
-    override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> =
-        listOf(CasBannerManager(reactContext))
+/** Tag for logs is the same as internal tag for CAS logging for easier filtering. */
+const val TAG = "CAS.AI"
 
-    override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> =
-        emptyList()
+class CasPackage : TurboReactPackage() {
+
+    private fun getAdManager(reactContext: ReactApplicationContext): MediationManager = CAS.manager ?: run {
+        CAS.settings.debugMode = true
+        Log.i(TAG, "Ad manager initialization started")
+        CAS.buildManager()
+            .withManagerId("Test-id")
+            .withTestAdMode(true)
+            .withAdTypes(AdType.Banner, AdType.Interstitial)
+            .withCompletionListener {
+                if (it.error == null) {
+                    Log.i(TAG, "Ad manager initialized")
+                } else {
+                    Log.e(TAG, "Ad manager initialization failed: " + it.error)
+                }
+            }
+            .build(reactContext.currentActivity as Context)
+    }
+
+    override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> =
+        listOf(CasBannerManager(getAdManager(reactContext)))
 
     override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
-        return if (name == CasBannerManager.CLASS_NAME) CasBannerManager(reactContext) else null
+        return if (name == CasInterstitialModule.NAME) {
+            CasInterstitialModule(reactContext, getAdManager(reactContext))
+        } else {
+            null
+        }
     }
 
     override fun getReactModuleInfoProvider(): ReactModuleInfoProvider = ReactModuleInfoProvider {
-        val info = ReactModuleInfo(
+        val bannerModuleInfo = ReactModuleInfo(
             _name = CasBannerManager.CLASS_NAME,
             _className = CasBannerManager.CLASS_NAME,
             _canOverrideExistingModule = false,
@@ -28,6 +56,17 @@ class CasPackage : TurboReactPackage() {
             isCxxModule = false,
             isTurboModule = true,
         )
-        mapOf(CasBannerManager.CLASS_NAME to info)
+        val interstitialModuleInfo = ReactModuleInfo(
+            _name = CasInterstitialModule.NAME,
+            _className = CasInterstitialModule.NAME,
+            _canOverrideExistingModule = false,
+            _needsEagerInit = false,
+            isCxxModule = false,
+            isTurboModule = true
+        )
+        mapOf(
+            CasBannerManager.CLASS_NAME to bannerModuleInfo,
+            CasInterstitialModule.NAME to interstitialModuleInfo
+        )
     }
 }

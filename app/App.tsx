@@ -1,11 +1,12 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Alert, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import {useFonts} from "expo-font";
 import CoinIcon from '../assets/coin.svg';
 import {StatusBar} from "expo-status-bar";
 import Button from "../components/Button";
 import {BannerSize, BannerWrapper} from "./ads/BannerWrapper";
+import RTNCasInterstitialNativeComponent from "rtn-cas-ads/js/specs/RTNCasInterstitialNativeComponent";
 
 export default function App() {
     const [loaded, error] = useFonts({
@@ -21,8 +22,8 @@ export default function App() {
         }
     }, [loaded, error]);
 
-    const callback = useCallback(() => {
-        Alert.alert("показ рекламы");
+    const onShowAdClick = useCallback(() => {
+        RTNCasInterstitialNativeComponent.showInterstitial("SomeParam")
     }, []);
 
     const [coins, setCoins] = useState<number>(0.0);
@@ -35,7 +36,7 @@ export default function App() {
         setCoins(coins => coins + coinsToAdd);
     };
 
-    /** Convert one presentation of ad with [cpm] to coins. */
+    /** Convert ad presentation with [cpm] to coins. */
     const cpmToCoins = (cpm: number) => cpm * 10;
 
     return (
@@ -47,14 +48,12 @@ export default function App() {
                     <Text style={styles.title}>{coins}</Text>
                     <CoinIcon width={24} height={24}/>
                 </View>
-                <Button text="Смотреть рекламу" onPress={callback} style={{marginBottom: 36}}/>
+                <Button text="Смотреть рекламу" onPress={onShowAdClick} style={{marginBottom: 36}}/>
             </View>
             <BannerWrapper
                 style={styles.banner}
                 onPresented={({nativeEvent}) => {
-                    if (nativeEvent.cpm) {
-                        addCoins(cpmToCoins(nativeEvent.cpm));
-                    }
+                    if (nativeEvent.cpm) addCoins(cpmToCoins(nativeEvent.cpm));
                 }}
                 size={BannerSize.BANNER}/>
         </SafeAreaView>
