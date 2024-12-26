@@ -2,6 +2,8 @@ package by.grodno.casads
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View.MeasureSpec.EXACTLY
+import android.view.View.MeasureSpec.makeMeasureSpec
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.cleversolutions.ads.AdError
@@ -15,6 +17,7 @@ import com.facebook.react.bridge.WritableMap
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.events.Event
+import com.facebook.react.uimanager.events.EventDispatcher
 
 class RTNCasBanner(
     private val reactContext: ThemedReactContext,
@@ -43,13 +46,13 @@ class RTNCasBanner(
 
             override fun onAdViewFailed(view: CASBannerView, error: AdError) {
                 label.text = error.message
-                emitOnPresented(PresentedResult.Error)
+                emitOnPresented(null)
                 Log.d(TAG, "Banner Ad received error: ${error.message}")
             }
 
             override fun onAdViewPresented(view: CASBannerView, info: AdImpression) {
                 label.text = "Presented: ${info.cpm}"
-                emitOnPresented(PresentedResult.Success)
+                emitOnPresented(info.cpm)
                 refreshLayout()
                 Log.d(TAG, "Banner Ad presented from ${info.cpm}")
             }
@@ -63,26 +66,22 @@ class RTNCasBanner(
     }
 
     private fun refreshLayout() {
-        measure(
-            MeasureSpec.makeMeasureSpec(measuredWidth, MeasureSpec.EXACTLY),
-            MeasureSpec.makeMeasureSpec(measuredHeight, MeasureSpec.EXACTLY)
-        )
+        measure(makeMeasureSpec(measuredWidth, EXACTLY), makeMeasureSpec(measuredHeight, EXACTLY))
         layout(left, top, right, bottom)
     }
 
     //region Events
 
-    fun emitOnPresented(result: PresentedResult) {
+    /** Emits [cpm] if present or empty event otherwise. */
+    private fun emitOnPresented(cpm: Double?) {
+        val eventDispatcher: EventDispatcher? = UIManagerHelper.getEventDispatcherForReactTag(reactContext, id)
         val surfaceId = UIManagerHelper.getSurfaceId(reactContext)
-        val eventDispatcher = UIManagerHelper.getEventDispatcherForReactTag(reactContext, id)
-        val payload = Arguments.createMap().apply { putString("result", result.name) }
-        val event = OnPresentedEvent(surfaceId, id, payload)
+        val map = Arguments.createMap().apply { cpm?.let { putDouble("cpm", it) } }
+        val event = OnPresentedEvent(surfaceId, id, map)
         eventDispatcher?.dispatchEvent(event)
     }
 
-    enum class PresentedResult { Success, Error }
-
-    inner class OnPresentedEvent(
+    private inner class OnPresentedEvent(
         surfaceId: Int,
         viewId: Int,
         private val payload: WritableMap

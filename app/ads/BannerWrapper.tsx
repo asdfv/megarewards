@@ -5,7 +5,11 @@ enum BannerSize {BANNER, LEADERBOARD}
 
 type IProps = {
     size?: BannerSize;
-    onPresented?: (object: { nativeEvent: { result: 'Success' | 'Error' } }) => void;
+    /**
+     * It is called after banner is presented. In case of successful presentation [object] contains
+     * `nativeObject: { cpm: number; }`. Missing [cpm] means presentation error.
+     */
+    onPresented?: (object: any) => void;
 };
 
 const BannerWrapper: React.FC<IProps> = ({size, onPresented}) => {

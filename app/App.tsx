@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Alert, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import {useFonts} from "expo-font";
@@ -25,9 +25,18 @@ export default function App() {
         Alert.alert("показ рекламы");
     }, []);
 
+    const [coins, setCoins] = useState<number>(0.0);
+
     if (!loaded && !error) {
         return null;
     }
+
+    const addCoins = (coinsToAdd: number) => {
+        setCoins(coins => coins + coinsToAdd);
+    };
+
+    /** Convert one presentation of ad with [cpm] to coins. */
+    const cpmToCoins = (cpm: number) => cpm * 10;
 
     return (
         <SafeAreaView style={styles.mainContainer}>
@@ -35,7 +44,7 @@ export default function App() {
             <View style={styles.container}>
                 <Text style={styles.subtitle}>МОНЕТОК</Text>
                 <View style={styles.titleBlock}>
-                    <Text style={styles.title}>0</Text>
+                    <Text style={styles.title}>{coins}</Text>
                     <CoinIcon width={24} height={24}/>
                 </View>
                 <Button text="Смотреть рекламу" onPress={callback} style={{marginBottom: 36}}/>
@@ -43,7 +52,9 @@ export default function App() {
             <BannerWrapper
                 style={styles.banner}
                 onPresented={({nativeEvent}) => {
-                    Alert.alert(`Result: ${nativeEvent.result}`);
+                    if (nativeEvent.cpm) {
+                        addCoins(cpmToCoins(nativeEvent.cpm));
+                    }
                 }}
                 size={BannerSize.BANNER}/>
         </SafeAreaView>
