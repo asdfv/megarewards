@@ -1,5 +1,6 @@
 package by.grodno.casads
 
+import by.grodno.casads.ads.banner.CasBannerManager
 import com.facebook.react.TurboReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext

@@ -1,4 +1,4 @@
-package by.grodno.casads
+package by.grodno.casads.ads.banner
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View.MeasureSpec.EXACTLY
 import android.view.View.MeasureSpec.makeMeasureSpec
 import android.widget.LinearLayout
 import android.widget.TextView
+import by.grodno.casads.R
 import com.cleversolutions.ads.AdError
 import com.cleversolutions.ads.AdImpression
 import com.cleversolutions.ads.AdSize

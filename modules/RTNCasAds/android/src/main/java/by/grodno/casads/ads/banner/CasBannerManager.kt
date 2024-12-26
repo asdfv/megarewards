@@ -1,4 +1,4 @@
-package by.grodno.casads
+package by.grodno.casads.ads.banner
 
 import android.content.Context
 import android.util.Log
