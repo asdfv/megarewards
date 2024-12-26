@@ -1,5 +1,5 @@
 import React from 'react';
-import RTNCasBanner from "rtn-cas-ads/js/RTNCasBannerNativeComponent";
+import RTNCasBanner from "rtn-cas-ads/js/specs/RTNCasBannerNativeComponent";
 
 enum BannerSize {BANNER, LEADERBOARD}
 
