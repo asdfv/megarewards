@@ -9,7 +9,7 @@ import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.viewmanagers.RTNCasBannerManagerDelegate
 import com.facebook.react.viewmanagers.RTNCasBannerManagerInterface
 
-@ReactModule(name = CasBannerManager.CLASS_NAME)
+@ReactModule(name = CasBannerManager.NAME)
 class CasBannerManager(private val adManager: MediationManager) :
     SimpleViewManager<RTNCasBanner>(),
     RTNCasBannerManagerInterface<RTNCasBanner> {
@@ -20,7 +20,7 @@ class CasBannerManager(private val adManager: MediationManager) :
 
     override fun getDelegate(): ViewManagerDelegate<RTNCasBanner> = delegate
 
-    override fun getName(): String = CLASS_NAME
+    override fun getName(): String = NAME
 
     @ReactProp(name = "size")
     override fun setSize(view: RTNCasBanner, size: String?) {
@@ -38,6 +38,6 @@ class CasBannerManager(private val adManager: MediationManager) :
         )
 
     companion object {
-        const val CLASS_NAME = "RTNCasBanner"
+        const val NAME = "RTNCasBanner"
     }
 }

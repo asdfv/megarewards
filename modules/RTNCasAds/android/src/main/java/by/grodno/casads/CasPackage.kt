@@ -49,8 +49,8 @@ class CasPackage : TurboReactPackage() {
 
     override fun getReactModuleInfoProvider(): ReactModuleInfoProvider = ReactModuleInfoProvider {
         val bannerModuleInfo = ReactModuleInfo(
-            _name = CasBannerManager.CLASS_NAME,
-            _className = CasBannerManager.CLASS_NAME,
+            _name = CasBannerManager.NAME,
+            _className = CasBannerManager.NAME,
             _canOverrideExistingModule = false,
             _needsEagerInit = false,
             isCxxModule = false,
@@ -65,7 +65,7 @@ class CasPackage : TurboReactPackage() {
             isTurboModule = true
         )
         mapOf(
-            CasBannerManager.CLASS_NAME to bannerModuleInfo,
+            CasBannerManager.NAME to bannerModuleInfo,
             CasInterstitialModule.NAME to interstitialModuleInfo
         )
     }
