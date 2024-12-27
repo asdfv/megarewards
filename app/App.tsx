@@ -18,27 +18,29 @@ export default function App() {
 
     useEffect(() => {
         if (loaded || error) {
-            SplashScreen.hideAsync();
+            SplashScreen.hideAsync()
         }
     }, [loaded, error]);
 
     const onShowAdClick = useCallback(() => {
-        RTNCasInterstitialNativeComponent.showInterstitial(10)
+        const onSuccess = (cpm: number) => addCoinsBasedOnCpm(cpm)
+        const onError = (error: object) => console.log(error)
+        const intervalInSeconds = 5
+        RTNCasInterstitialNativeComponent.showInterstitial(intervalInSeconds).then(onSuccess, onError)
     }, []);
 
-    const [coins, setCoins] = useState<number>(0.0);
+    const [coins, setCoins] = useState<number>(0.0)
 
     if (!loaded && !error) {
         return null;
     }
 
-    const addCoins = (coinsToAdd: number) => {
-        setCoins(coins => coins + coinsToAdd);
-    };
-
-    /** Convert ad presentation with [cpm] to coins. */
-    const cpmToCoins = (cpm: number) => cpm * 10;
-
+    const addCoinsBasedOnCpm = (cpm: number) => {
+        /** Convert ad presentation with [cpm] to coins. */
+        const cpmToCoins = (cpm: number) => cpm * 10;
+        const addCoins = (coinsToAdd: number) => setCoins(coins => coins + coinsToAdd)
+        addCoins(cpmToCoins(cpm))
+    }
     return (
         <SafeAreaView style={styles.mainContainer}>
             <StatusBar style="dark"/>
@@ -53,7 +55,7 @@ export default function App() {
             <BannerWrapper
                 style={styles.banner}
                 onPresented={({nativeEvent}) => {
-                    if (nativeEvent.cpm) addCoins(cpmToCoins(nativeEvent.cpm));
+                    if (nativeEvent.cpm) addCoinsBasedOnCpm(nativeEvent.cpm)
                 }}
                 size={BannerSize.BANNER}/>
         </SafeAreaView>

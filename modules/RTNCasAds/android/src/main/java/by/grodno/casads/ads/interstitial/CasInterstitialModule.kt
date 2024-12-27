@@ -8,6 +8,7 @@ import com.cleversolutions.ads.AdImpression
 import com.cleversolutions.ads.AdPaidCallback
 import com.cleversolutions.ads.MediationManager
 import com.cleversolutions.ads.android.CAS
+import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 
 class CasInterstitialModule(
@@ -15,28 +16,28 @@ class CasInterstitialModule(
     private val adManager: MediationManager
 ) : RTNCasInterstitialNativeComponentSpec(reactContext) {
 
-    private val onPresented = object : AdPaidCallback {
-        override fun onAdRevenuePaid(ad: AdImpression) {
-            Log.d(TAG, "Interstitial Ad revenue paid from " + ad.network)
-        }
-
-        override fun onShowFailed(message: String) {
-            Log.e(TAG, "Interstitial Ad show failed: $message")
-        }
-    }
-
-    override fun showInterstitial(interval: Double?) {
+    override fun showInterstitial(interval: Double?, promise: Promise?) {
         if (interval != null) setInterval(interval)
-        Log.d(TAG, "Start interstitial.")
+        Log.d(TAG, "Interstitial starting.")
+        val onPresented = object : AdPaidCallback {
+            override fun onAdRevenuePaid(ad: AdImpression) {
+                promise?.resolve(ad.cpm)
+            }
+
+            override fun onShowFailed(message: String) {
+                promise?.reject(RuntimeException(message))
+            }
+        }
+
         adManager.showInterstitial(reactContext.currentActivity as Activity, onPresented)
     }
 
     private fun setInterval(interval: Double) {
         if (interval < 0) {
-            Log.d(TAG, "Interval $interval is not applied, it must be non-negative value.")
+            Log.d(TAG, "Interstitial interval $interval is not applied, it must be non-negative value.")
         } else {
             val int = interval.toInt()
-            Log.d(TAG, "Set interval for interstitial to $int seconds.")
+            Log.d(TAG, "Interstitial, set interval to $int seconds.")
             CAS.getSettings().interstitialInterval = int
         }
     }
