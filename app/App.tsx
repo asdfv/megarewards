@@ -23,7 +23,7 @@ export default function App() {
     }, [loaded, error]);
 
     const onShowAdClick = useCallback(() => {
-        RTNCasInterstitialNativeComponent.showInterstitial("SomeParam")
+        RTNCasInterstitialNativeComponent.showInterstitial(10)
     }, []);
 
     const [coins, setCoins] = useState<number>(0.0);

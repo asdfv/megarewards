@@ -2,7 +2,11 @@ import type {TurboModule} from 'react-native';
 import {TurboModuleRegistry} from 'react-native';
 
 export interface Spec extends TurboModule {
-    showInterstitial(value: string): void;
+    /**
+     * Show interstitial ad.
+     * @param interval delay in seconds till the next presentation is possible, 0 by default.
+     */
+    showInterstitial(interval: number | null): void;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>(
