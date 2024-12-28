@@ -1,14 +1,10 @@
 import React from 'react';
 import RTNCasBanner from "rtn-cas-ads/js/specs/RTNCasBannerNativeComponent";
 
-enum BannerSize {BANNER, LEADERBOARD}
+enum BannerSize {BANNER, LEADERBOARD, ADAPTIVE}
 
 type IProps = {
     size?: BannerSize;
-    /**
-     * It is called after banner is presented. In case of successful presentation [cpm] is present.
-     * Missing [cpm] means error.
-     */
     onPresented?: (cpm: number | null) => void;
 };
 
@@ -20,6 +16,9 @@ const BannerWrapper: React.FC<IProps> = ({size, onPresented}) => {
             break;
         case BannerSize.LEADERBOARD:
             allowedSize = 'LEADERBOARD';
+            break;
+        case BannerSize.ADAPTIVE:
+            allowedSize = 'ADAPTIVE';
             break;
     }
     return (

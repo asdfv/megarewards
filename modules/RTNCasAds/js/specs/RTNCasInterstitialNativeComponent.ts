@@ -10,6 +10,4 @@ export interface Spec extends TurboModule {
     showInterstitial(interval: number | null): Promise<number>;
 }
 
-export default TurboModuleRegistry.getEnforcing<Spec>(
-    'RTNCasInterstitial',
-);
+export default TurboModuleRegistry.getEnforcing<Spec>('RTNCasInterstitial',);

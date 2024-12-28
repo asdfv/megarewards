@@ -28,7 +28,6 @@ class CasInterstitialModule(
                 promise?.reject(RuntimeException(message))
             }
         }
-
         adManager.showInterstitial(reactContext.currentActivity as Activity, onPresented)
     }
 

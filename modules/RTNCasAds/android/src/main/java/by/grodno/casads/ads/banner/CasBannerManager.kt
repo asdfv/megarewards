@@ -24,7 +24,7 @@ class CasBannerManager(private val adManager: MediationManager) :
 
     @ReactProp(name = "size")
     override fun setSize(view: RTNCasBanner, size: String?) {
-        size?.let { view.setSize(size) }
+        view.setSize(size)
     }
 
     override fun getExportedCustomBubblingEventTypeConstants(): Map<String, Any> =

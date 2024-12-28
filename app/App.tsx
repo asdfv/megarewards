@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {Alert, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import {useFonts} from "expo-font";
 import CoinIcon from '../assets/coin.svg';
@@ -33,7 +33,7 @@ export default function App() {
 
     const onShowAdClick = useCallback(() => {
         const onSuccess = (cpm: number) => addCoinsBasedOnCpm(cpm)
-        const onError = (error: object) => console.log(error)
+        const onError = (error: any) => Alert.alert(error.message)
         const intervalInSeconds = 5
         RTNCasInterstitialNativeComponent.showInterstitial(intervalInSeconds).then(onSuccess, onError)
     }, []);
@@ -58,7 +58,8 @@ export default function App() {
                 onPresented={(cpm) => {
                     if (cpm) addCoinsBasedOnCpm(cpm)
                 }}
-                size={BannerSize.BANNER}/>
+                size={BannerSize.ADAPTIVE}
+            />
         </SafeAreaView>
     );
 }

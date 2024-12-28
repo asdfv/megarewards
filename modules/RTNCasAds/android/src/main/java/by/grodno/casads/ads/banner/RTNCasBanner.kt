@@ -1,13 +1,11 @@
 package by.grodno.casads.ads.banner
 
-import android.util.Log
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View.MeasureSpec.EXACTLY
 import android.view.View.MeasureSpec.makeMeasureSpec
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.FrameLayout
 import by.grodno.casads.R
-import by.grodno.casads.TAG
 import com.cleversolutions.ads.AdError
 import com.cleversolutions.ads.AdImpression
 import com.cleversolutions.ads.AdSize
@@ -21,58 +19,36 @@ import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.events.Event
 import com.facebook.react.uimanager.events.EventDispatcher
 
-class RTNCasBanner(
-    private val reactContext: ThemedReactContext,
-    adManager: MediationManager
-) : LinearLayout(reactContext) {
+class RTNCasBanner(private val reactContext: ThemedReactContext, adManager: MediationManager) :
+    FrameLayout(reactContext) {
 
     private val banner: CASBannerView
 
     init {
         LayoutInflater.from(reactContext).inflate(R.layout.rtn_cas_banner, this, true)
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-        orientation = VERTICAL
         banner = initBanner(adManager)
     }
 
-    private fun initBanner(manager: MediationManager): CASBannerView {
-        val bannerView = findViewById<CASBannerView>(R.id.bannerView)
-        bannerView.manager = manager
-        val label = findViewById<TextView>(R.id.label)
-        label.text = "Here will be info about ads"
-        bannerView.adListener = object : AdViewListener {
-            override fun onAdViewLoaded(view: CASBannerView) {
-                label.text = "Loaded"
-                Log.d(TAG, "Banner Ad loaded and ready to present")
-            }
+    private fun initBanner(adManager: MediationManager): CASBannerView =
+        findViewById<CASBannerView>(R.id.bannerView).apply {
+            manager = adManager
+            adListener = object : AdViewListener {
+                override fun onAdViewFailed(view: CASBannerView, error: AdError) {
+                    emitOnPresented(null)
+                }
 
-            override fun onAdViewFailed(view: CASBannerView, error: AdError) {
-                label.text = error.message
-                emitOnPresented(null)
-                Log.d(TAG, "Banner Ad received error: ${error.message}")
-            }
-
-            override fun onAdViewPresented(view: CASBannerView, info: AdImpression) {
-                label.text = "Presented: ${info.cpm}"
-                emitOnPresented(info.cpm)
-                refreshLayout()
-                Log.d(TAG, "Banner Ad presented from ${info.cpm}")
-            }
-
-            override fun onAdViewClicked(view: CASBannerView) {
-                label.text = "Clicked"
-                Log.d(TAG, "Banner Ad received Click action")
+                override fun onAdViewPresented(view: CASBannerView, info: AdImpression) {
+                    emitOnPresented(info.cpm)
+                    refreshLayout()
+                }
             }
         }
-        return bannerView
-    }
 
     private fun refreshLayout() {
         measure(makeMeasureSpec(measuredWidth, EXACTLY), makeMeasureSpec(measuredHeight, EXACTLY))
         layout(left, top, right, bottom)
     }
-
-    //region Events
 
     /** Emits [cpm] if present or empty event otherwise. */
     private fun emitOnPresented(cpm: Double?) {
@@ -92,13 +68,13 @@ class RTNCasBanner(
         override fun getEventData() = payload
     }
 
-    //endregion
-
-    fun setSize(string: String) {
+    fun setSize(string: String?) {
         banner.size = when (string) {
             "BANNER" -> AdSize.BANNER
             "LEADERBOARD" -> AdSize.LEADERBOARD
-            else -> AdSize.BANNER
+            "ADAPTIVE" -> AdSize.getAdaptiveBannerInScreen(reactContext.currentActivity as Context)
+            else -> AdSize.getAdaptiveBannerInScreen(reactContext.currentActivity as Context)
         }
+        refreshLayout()
     }
 }
