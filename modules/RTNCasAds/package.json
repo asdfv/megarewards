@@ -16,13 +16,13 @@
     "!**/__mocks__"
   ],
   "keywords": ["react-native", "ios", "android"],
-  "repository": "https://github.com/notYet/rtn-cas-ads",
-  "author": "Vasili dlja-spama@mail.ru> (https://github.com/topSecret)",
+  "repository": "",
+  "author": "Vasili https://github.com/asdfv",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/topSecret/rtn-cas-ads/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/topSecret/rtn-centered-text#readme",
+  "homepage": "",
   "devDependencies": {
     "@react-native-community/cli": "latest"
   },

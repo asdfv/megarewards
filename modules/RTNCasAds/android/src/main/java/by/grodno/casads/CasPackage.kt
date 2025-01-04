@@ -20,11 +20,11 @@ const val TAG = "CAS.AI"
 class CasPackage : TurboReactPackage() {
 
     private fun getAdManager(reactContext: ReactApplicationContext): MediationManager = CAS.manager ?: run {
-        CAS.settings.debugMode = true
+        CAS.settings.debugMode = BuildConfig.DEBUG
         Log.i(TAG, "Ad manager initialization started")
         CAS.buildManager()
             .withManagerId("Test-id")
-            .withTestAdMode(true)
+            .withTestAdMode(BuildConfig.DEBUG)
             .withAdTypes(AdType.Banner, AdType.Interstitial)
             .withCompletionListener {
                 if (it.error == null) {
