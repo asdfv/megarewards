@@ -6,7 +6,9 @@ import CoinIcon from '../assets/coin.svg';
 import {StatusBar} from "expo-status-bar";
 import Button from "../components/Button";
 import {BannerSize, BannerWrapper} from "./ads/BannerWrapper";
-import RTNCasInterstitialNativeComponent from "rtn-cas-ads/js/specs/RTNCasInterstitialNativeComponent";
+import RTNCasInterstitialNativeComponent, {
+    RTNAdImpression
+} from "rtn-cas-ads/js/specs/RTNCasInterstitialNativeComponent";
 
 export default function App() {
     const [loaded, error] = useFonts({
@@ -32,7 +34,7 @@ export default function App() {
     }
 
     const onShowAdClick = useCallback(() => {
-        const onSuccess = (cpm: number) => addCoinsBasedOnCpm(cpm)
+        const onSuccess = (impression: RTNAdImpression) => addCoinsBasedOnCpm(impression.cpm)
         const onError = (error: any) => Alert.alert(error.message)
         const intervalInSeconds = 5
         RTNCasInterstitialNativeComponent.showInterstitial(intervalInSeconds).then(onSuccess, onError)

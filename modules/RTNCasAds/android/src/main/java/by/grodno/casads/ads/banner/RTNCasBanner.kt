@@ -54,7 +54,7 @@ class RTNCasBanner(private val reactContext: ThemedReactContext, adManager: Medi
     private fun emitOnPresented(cpm: Double?) {
         val eventDispatcher: EventDispatcher? = UIManagerHelper.getEventDispatcherForReactTag(reactContext, id)
         val surfaceId = UIManagerHelper.getSurfaceId(reactContext)
-        val map = Arguments.createMap().apply { cpm?.let { putDouble("cpm", it) } }
+        val map: WritableMap = Arguments.createMap().apply { cpm?.let { putDouble("cpm", it) } }
         val event = OnPresentedEvent(surfaceId, id, map)
         eventDispatcher?.dispatchEvent(event)
     }

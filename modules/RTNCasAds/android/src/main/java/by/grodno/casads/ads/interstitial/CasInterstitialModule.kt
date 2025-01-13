@@ -10,6 +10,8 @@ import com.cleversolutions.ads.MediationManager
 import com.cleversolutions.ads.android.CAS
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.WritableMap
+import com.facebook.react.bridge.WritableNativeMap
 
 class CasInterstitialModule(
     private val reactContext: ReactApplicationContext,
@@ -21,7 +23,18 @@ class CasInterstitialModule(
         Log.d(TAG, "Interstitial starting.")
         val onPresented = object : AdPaidCallback {
             override fun onAdRevenuePaid(ad: AdImpression) {
-                promise?.resolve(ad.cpm)
+                val impressionMap: WritableMap = WritableNativeMap().apply {
+                    putString("adType", ad.adType.name)
+                    putString("network", ad.network)
+                    putDouble("cpm", ad.cpm)
+                    putInt("priceAccuracy", ad.priceAccuracy)
+                    putString("versionInfo", ad.versionInfo)
+                    putString("creativeIdentifier", ad.creativeIdentifier)
+                    putString("identifier", ad.identifier)
+                    putInt("impressionDepth", ad.impressionDepth)
+                    putDouble("lifetimeRevenue", ad.lifetimeRevenue)
+                }
+                promise?.resolve(impressionMap)
             }
 
             override fun onShowFailed(message: String) {
