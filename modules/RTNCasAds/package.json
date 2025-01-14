@@ -32,7 +32,7 @@
   },
   "codegenConfig": {
     "name": "RTNCasAdsSpecs",
-    "type": "components, modules",
+    "type": "all",
     "jsSrcsDir": "js/specs",
     "android": {
       "javaPackageName": "by.grodno.casads"

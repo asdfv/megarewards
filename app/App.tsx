@@ -6,9 +6,8 @@ import CoinIcon from '../assets/coin.svg';
 import {StatusBar} from "expo-status-bar";
 import Button from "../components/Button";
 import {BannerSize, BannerWrapper} from "./ads/BannerWrapper";
-import RTNCasInterstitialNativeComponent, {
-    RTNAdImpression
-} from "rtn-cas-ads/js/specs/RTNCasInterstitialNativeComponent";
+import RTNCasInterstitialNativeComponent from "rtn-cas-ads/js/specs/RTNCasInterstitialNativeComponent";
+import {RTNAdImpression} from "rtn-cas-ads/js/specs/RTNCasBannerNativeComponent";
 
 export default function App() {
     const [loaded, error] = useFonts({
@@ -56,9 +55,13 @@ export default function App() {
                 <Button text="Смотреть рекламу" onPress={onShowAdClick} style={{marginBottom: 36}}/>
             </View>
             <BannerWrapper
-                style={styles.banner}
-                onPresented={(cpm) => {
-                    if (cpm) addCoinsBasedOnCpm(cpm)
+                onPresented={(impression) => {
+                    let cpm = impression.cpm;
+                    if (cpm) {
+                        addCoinsBasedOnCpm(cpm)
+                    } else {
+                        console.log("Error when loading banner.");
+                    }
                 }}
                 size={BannerSize.ADAPTIVE}
             />
@@ -94,8 +97,5 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_Bold',
         fontSize: 32,
         textAlign: 'center',
-    },
-    banner: {
-        height: 100,
     },
 });
