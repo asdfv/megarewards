@@ -1,4 +1,4 @@
-package com.mobileapp
+package com.largeowl.trustreward
 
 import android.app.Application
 import android.content.res.Configuration
