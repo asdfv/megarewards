@@ -1,4 +1,4 @@
-package com.largeowl.trustreward
+package com.luckybear.megarewards
 
 import android.os.Build
 import android.os.Bundle
