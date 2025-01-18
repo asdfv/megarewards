@@ -5,7 +5,7 @@ import {useFonts} from "expo-font";
 import CoinIcon from '../assets/coin.svg';
 import {StatusBar} from "expo-status-bar";
 import Button from "../components/Button";
-import {BannerSize, BannerWrapper} from "./ads/BannerWrapper";
+import {BannerSize, BannerWrapper} from "../components/BannerWrapper";
 import RTNCasInterstitialNativeComponent from "rtn-cas-ads/js/specs/RTNCasInterstitialNativeComponent";
 import {RTNAdImpression} from "rtn-cas-ads/js/specs/RTNCasBannerNativeComponent";
 
