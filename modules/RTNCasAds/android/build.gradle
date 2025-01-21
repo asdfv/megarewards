@@ -44,6 +44,25 @@ repositories {
 dependencies {
     implementation 'com.facebook.react:react-native'
     implementation("com.cleveradssolutions:cas-sdk:3.9.8")
-    implementation("com.cleveradssolutions:cas:3.9.8")
     implementation("com.google.android.gms:play-services-ads-identifier:18.2.0")
+
+    // Comment mediators that are not needed.
+    implementation("com.cleveradssolutions:cas-exchange:3.9.8")   // CASExchange
+    implementation("com.cleveradssolutions:ironsource:8.6.1.0")   // IronSource
+    implementation("com.cleveradssolutions:google:23.6.0.0")      // Google Ads | Admob
+    implementation("com.cleveradssolutions:unity:4.13.0.0")       // Unity Ads
+    implementation("com.cleveradssolutions:kidoz:9.1.2.0")        // Kidoz
+    implementation("com.cleveradssolutions:superawesome:9.4.0.0") // SuperAwesome
+    implementation("com.cleveradssolutions:vungle:7.4.2.0")       // LiftoffMonetize
+    implementation("com.cleveradssolutions:inmobi:10.8.0.0")      // InMobi
+    implementation("com.cleveradssolutions:chartboost:9.8.2.0")   // Chartboost
+    implementation("com.cleveradssolutions:fyber:8.3.5.0")        // DT Exchange
+    implementation("com.cleveradssolutions:mintegral:16.9.31.0")  // Mintegral
+    implementation("com.cleveradssolutions:applovin:13.0.1.0")    // AppLovin
+    implementation("com.cleveradssolutions:facebook:6.18.0.1")    // Meta Audience Network
+    implementation("com.cleveradssolutions:pangle:6.4.0.5")       // Pangle
+    implementation("com.cleveradssolutions:yandex:27.8.1.0")      // Yandex Ads
+    implementation("com.cleveradssolutions:bigo:5.1.0.0")         // Bigo
+    implementation("com.cleveradssolutions:startio:5.1.0.0")      // StartIO
+    implementation("com.cleveradssolutions:hyprmx:6.4.2.0")       // HyprMX
 }
