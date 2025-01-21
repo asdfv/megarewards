@@ -1,24 +1,23 @@
 package by.grodno.casads.ads.banner
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View.MeasureSpec.EXACTLY
 import android.view.View.MeasureSpec.makeMeasureSpec
 import android.widget.FrameLayout
 import by.grodno.casads.R
+import by.grodno.casads.TAG
 import com.cleversolutions.ads.AdError
 import com.cleversolutions.ads.AdImpression
 import com.cleversolutions.ads.AdSize
 import com.cleversolutions.ads.AdViewListener
 import com.cleversolutions.ads.MediationManager
 import com.cleversolutions.ads.android.CASBannerView
-import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.bridge.WritableNativeMap
-import com.facebook.react.fabric.FabricUIManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.UIManagerHelper
-import com.facebook.react.uimanager.common.UIManagerType
 import com.facebook.react.uimanager.events.Event
 import com.facebook.react.uimanager.events.EventDispatcher
 
@@ -40,10 +39,13 @@ class RTNCasBanner(
             manager = adManager
             adListener = object : AdViewListener {
                 override fun onAdViewFailed(view: CASBannerView, error: AdError) {
+                    Log.e(TAG, "Error when loading banner: $error")
                     emitOnPresented(null)
+                    refreshLayout()
                 }
 
                 override fun onAdViewPresented(view: CASBannerView, info: AdImpression) {
+                    Log.i(TAG, "Banner presented with cpm: ${info.cpm}.")
                     emitOnPresented(info)
                     refreshLayout()
                 }

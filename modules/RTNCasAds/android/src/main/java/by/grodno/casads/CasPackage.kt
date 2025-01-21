@@ -22,9 +22,11 @@ class CasPackage : TurboReactPackage() {
     private fun getAdManager(reactContext: ReactApplicationContext): MediationManager = CAS.manager ?: run {
         val isDebug = BuildConfig.DEBUG
         CAS.settings.debugMode = isDebug
-        Log.i(TAG, "Ad manager initialization started in ${if(isDebug) "Debug" else "Release"} mode.")
+        val mode = if (isDebug) "Debug" else "Release"
+        val appId = reactContext.applicationContext.packageName
+        Log.i(TAG, "Ad manager initialization started in $mode mode with App ID $appId.")
         CAS.buildManager()
-            .withCasId(reactContext.applicationContext.packageName)
+            .withCasId(appId)
             .withTestAdMode(isDebug)
             .withAdTypes(AdType.Banner, AdType.Interstitial)
             .withCompletionListener {
