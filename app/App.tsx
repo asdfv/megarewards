@@ -57,7 +57,10 @@ export default function App() {
             <BannerWrapper
                 onPresented={(impression) => {
                     let cpm = impression.cpm;
-                    if (cpm) {
+                    if (typeof cpm === 'number') {
+                        if (cpm === 0.0) {
+                            console.log("Zero cpm for presented banner.")
+                        }
                         addCoinsBasedOnCpm(cpm)
                     } else {
                         console.log("Error when loading banner.");
